@@ -10,9 +10,17 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="# 测试。">
+<meta name="description" content="## 面向对象相关
+
+### 1. 面向对象三大特性
+
+- 封装，将数据（属性）和操作这些数据的函数（方法）组合在一个类中的过程。">
 <meta property="og:title" content="C++八股面经总结">
-<meta property="og:description" content="# 测试。">
+<meta property="og:description" content="## 面向对象相关
+
+### 1. 面向对象三大特性
+
+- 封装，将数据（属性）和操作这些数据的函数（方法）组合在一个类中的过程。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://UKMeng.github.io/post/C%2B%2B-ba-gu-mian-jing-zong-jie.html">
 <meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
@@ -73,7 +81,19 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><h1>测试</h1></div>
+<div class="markdown-body" id="postBody"><h2>面向对象相关</h2>
+<h3>1. 面向对象三大特性</h3>
+<ul>
+<li>封装，将数据（属性）和操作这些数据的函数（方法）组合在一个类中的过程。隐藏类的内部实现细节，通过控制类的访问级别，限制对类内数据的直接访问，提供了更好的安全性和可维护性。</li>
+<li>继承，是一个派生类从一个基类哪里获取其属性和方法的过程。通过继承共享代码的类层次结构，减少重复代码，提高代码的复用性和可维护性。C++中继承也可以通过访问修饰符限制访问权限。</li>
+<li>多态，见下题。</li>
+</ul>
+<h3>2. 介绍下多态</h3>
+<p>多态，同一个接口可以由不同的对象以不同的方式进行实现和响应的能力。</p>
+<ul>
+<li>静态多态（编译时），函数重载、运算符重载，类模板、函数模板</li>
+<li>动态多态（运行时），虚函数（动态绑定）</li>
+</ul></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
