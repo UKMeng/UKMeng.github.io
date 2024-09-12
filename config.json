@@ -2,5 +2,9 @@
     "title":"Blog Title",
     "subTitle":"Blog description",
     "avatarUrl":"https://github.githubassets.com/favicons/favicon.svg",
+    "themeMode":"fix",
+    "dayTheme":"dark",
+    "nightTheme":"dark-blue",
+    "script":"<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekTOC.js'></script>",
     "GMEEK_VERSION":"last"
 }
