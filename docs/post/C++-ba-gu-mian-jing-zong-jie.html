@@ -119,11 +119,11 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 <h3>4. 什么函数（不）可以是虚函数</h3>
 <h4>模板函数不能是虚函数</h4>
-<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">class</span> Animal{
-  <span class="pl-k">public</span>:
+<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-en">Animal</span>{
+  <span class="pl-k">public:</span>
       <span class="pl-k">template</span>&lt;<span class="pl-k">typename</span> T&gt;
-      <span class="pl-k">virtual</span> void make_sound(){
-        //...
+      <span class="pl-k">virtual</span> <span class="pl-k">void</span> <span class="pl-en">make_sound</span>(){
+        <span class="pl-c"><span class="pl-c">//</span>...</span>
       }
 };</pre></div>
 <p>会编译报错，模板函数的能被实例化成多少个函数需要所有的编译单元编译完成后才能知道，而虚函数表是在一个类编译完成时就确定的。</p>
@@ -134,7 +134,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h4>inline 函数可以是虚函数吗</h4>
 <p>虚函数可以是内联函数，但是虚函数表现多态性时不能内联。inline virtual 唯一可以内联的时候是编译器知道所调用的对象是哪个类，在编译期具有实际对象而不是对象的指针或引用时才能发生。</p>
 <h3>5. 纯虚函数</h3>
-<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">virtual</span> int A() = 0;</pre></div>
+<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">virtual</span> <span class="pl-k">int</span> <span class="pl-en">A</span>() = 0;</pre></div>
 <p>纯虚函数是一种特殊的虚函数，在基类中不能对虚函数给出有意义的实现，留给派生类去实现，相当于一个接口。带纯虚函数的类叫做抽象类，不能直接生成对象，只能被继承并重写其虚函数后才能被使用。</p>
 <ul>
 <li>如果类声明了虚函数，那么这个函数就是实现的了，哪怕是空实现。而纯虚函数只是个声明，需要派生类去实现。</li>
@@ -159,10 +159,10 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
   B   C
    \ /
     D
-class A { public: int value; };
-<span class="pl-k">class</span> B : virtual public A {};
-<span class="pl-k">class</span> C : virtual public A {}; 
-<span class="pl-k">class</span> D : public B, public C {};</pre></div>
+<span class="pl-k">class</span> <span class="pl-en">A</span> { <span class="pl-k">public:</span> <span class="pl-k">int</span> value; };
+<span class="pl-k">class</span> <span class="pl-en">B</span> : <span class="pl-k">virtual</span> public A {};
+<span class="pl-k">class</span> <span class="pl-en">C</span> : <span class="pl-k">virtual</span> public A {}; 
+<span class="pl-k">class</span> <span class="pl-en">D</span> : <span class="pl-k">public</span> <span class="pl-en">B</span>, <span class="pl-k">public</span> <span class="pl-en">C</span> {};</pre></div>
 <p>当一个派生类通过不同路径继承来自同一个基类时，使用虚继承可以确保只有一个基类子对象被创建。</p>
 <p>虚继承的原理是通过虚基类表指针和虚基类表实现的，虚基类表存储的是虚基类与本类的偏移地址，通过偏移地址就可以找到虚基类成员。</p>
 <h3>8. 介绍下模板以及特化</h3>
@@ -170,19 +170,19 @@ class A { public: int value; };
 <p>模板特化是指在一定条件下重写模板的机制，分为全特化和偏特化（其中全局模板函数不支持偏特化）</p>
 <h4>全特化</h4>
 <p>全特化是指对模板的某种特定类型的完全重新定义</p>
-<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">template</span> &lt;&gt;
-<span class="pl-k">class</span> Stack&lt;bool&gt; {
-<span class="pl-k">private</span>:
-	std::vector&lt;int&gt; elements;
-<span class="pl-k">public</span>:
-	void <span class="pl-en">push</span>(const bool&amp; element) {
-		elements.push_back(element ? 1 : 0);
+<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">template </span>&lt;&gt;
+<span class="pl-k">class</span> <span class="pl-en">Stack</span>&lt;<span class="pl-k">bool</span>&gt; {
+<span class="pl-k">private:</span>
+	std::vector&lt;<span class="pl-k">int</span>&gt; elements;
+<span class="pl-k">public:</span>
+	<span class="pl-k">void</span> <span class="pl-en">push</span>(<span class="pl-k">const</span> <span class="pl-k">bool</span>&amp; element) {
+		elements.<span class="pl-c1">push_back</span>(element ? <span class="pl-c1">1</span> : <span class="pl-c1">0</span>);
 	}
-	void <span class="pl-en">pop</span>();
-	bool <span class="pl-en">top</span>() const {
-		return elements.back() == 1;
+	<span class="pl-k">void</span> <span class="pl-en">pop</span>();
+	<span class="pl-k">bool</span> <span class="pl-en">top</span>() <span class="pl-k">const</span> {
+		<span class="pl-k">return</span> elements.<span class="pl-c1">back</span>() == <span class="pl-c1">1</span>;
 	};
-	bool <span class="pl-en">empty</span>() const {};
+	<span class="pl-k">bool</span> <span class="pl-en">empty</span>() <span class="pl-k">const</span> {};
 };</pre></div>
 <h4>偏特化</h4>
 <p>偏特化是指保留某些模板参数未特化，而对其他模板参数进行特化</p>
@@ -191,81 +191,81 @@ class A { public: int value; };
 <li>参数数量偏特化</li>
 <li>范围偏特化（指针和const）</li>
 </ul>
-<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">template</span> &lt;<span class="pl-k">typename</span> T1, <span class="pl-k">typename</span> T2&gt;
-<span class="pl-k">class</span> MyClass {
+<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">template </span>&lt;<span class="pl-k">typename</span> T1, <span class="pl-k">typename</span> T2&gt;
+<span class="pl-k">class</span> <span class="pl-en">MyClass</span> {
 };
 
-// 参数数量偏特化
-<span class="pl-k">template</span> &lt;<span class="pl-k">typename</span> T&gt;
-<span class="pl-k">class</span> MyClass&lt;T, int&gt; {
+<span class="pl-c"><span class="pl-c">//</span> 参数数量偏特化</span>
+<span class="pl-k">template </span>&lt;<span class="pl-k">typename</span> T&gt;
+<span class="pl-k">class</span> <span class="pl-en">MyClass</span>&lt;T, <span class="pl-k">int</span>&gt; {
 };
 
-// 范围偏特化（指针和const）
-<span class="pl-k">template</span> &lt;<span class="pl-k">typename</span> T1, <span class="pl-k">typename</span> T2&gt;
-<span class="pl-k">class</span> MyClass&lt;T1*, T2*&gt; {
+<span class="pl-c"><span class="pl-c">//</span> 范围偏特化（指针和const）</span>
+<span class="pl-k">template </span>&lt;<span class="pl-k">typename</span> T1, <span class="pl-k">typename</span> T2&gt;
+<span class="pl-k">class</span> <span class="pl-en">MyClass</span>&lt;T1*, T2*&gt; {
 };
 
-<span class="pl-k">template</span> &lt;<span class="pl-k">typename</span> T1, <span class="pl-k">typename</span> T2&gt;
-<span class="pl-k">class</span> MyClass&lt;T1 const, T2 const&gt; {
+<span class="pl-k">template </span>&lt;<span class="pl-k">typename</span> T1, <span class="pl-k">typename</span> T2&gt;
+<span class="pl-k">class</span> <span class="pl-en">MyClass</span>&lt;T1 <span class="pl-k">const</span>, T2 <span class="pl-k">const</span>&gt; {
 };</pre></div>
 <p>函数模板不支持偏特化，如果强行写偏特化会重载</p>
 <div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">template</span>&lt;<span class="pl-k">typename</span> T1, <span class="pl-k">typename</span> T2&gt;
-void testfun(T1 t1, T2 t2) {
-	cout &lt;&lt; "模板函数" &lt;&lt; endl;
+<span class="pl-k">void</span> <span class="pl-en">testfun</span>(T1 t1, T2 t2) {
+	cout &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>模板函数<span class="pl-pds">"</span></span> &lt;&lt; endl;
 }
 
-// 全特化1， 不会被重载
+<span class="pl-c"><span class="pl-c">//</span> 全特化1， 不会被重载</span>
 <span class="pl-k">template</span>&lt;&gt;
-void testfun(char t1, string t2) {
-	cout &lt;&lt; "全特化" &lt;&lt; endl;
+<span class="pl-k">void</span> <span class="pl-en">testfun</span>(<span class="pl-k">char</span> t1, string t2) {
+	cout &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>全特化<span class="pl-pds">"</span></span> &lt;&lt; endl;
 }
 
-// 全特化2， 会被重载
+<span class="pl-c"><span class="pl-c">//</span> 全特化2， 会被重载</span>
 <span class="pl-k">template</span>&lt;&gt;
-void testfun(int t1, string t2) {
-	cout &lt;&lt; "全特化" &lt;&lt; endl;
+<span class="pl-k">void</span> <span class="pl-en">testfun</span>(<span class="pl-k">int</span> t1, string t2) {
+	cout &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>全特化<span class="pl-pds">"</span></span> &lt;&lt; endl;
 }
 
-// 偏特化，重载
+<span class="pl-c"><span class="pl-c">//</span> 偏特化，重载</span>
 <span class="pl-k">template</span>&lt;<span class="pl-k">typename</span> T2&gt;
-void testfun(int t1, T2 t2) {
-	cout &lt;&lt; "偏特化" &lt;&lt; endl;
+<span class="pl-k">void</span> <span class="pl-en">testfun</span>(<span class="pl-k">int</span> t1, T2 t2) {
+	cout &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>偏特化<span class="pl-pds">"</span></span> &lt;&lt; endl;
 }
 
-// 不支持const范围偏特化
+<span class="pl-c"><span class="pl-c">//</span> 不支持const范围偏特化</span>
 
-// 指针偏特化
+<span class="pl-c"><span class="pl-c">//</span> 指针偏特化</span>
 <span class="pl-k">template</span>&lt;<span class="pl-k">typename</span> T1, <span class="pl-k">typename</span> T2&gt;
-void testfun(T1* t1, T2* t2) {
-	cout &lt;&lt; "指针偏特化" &lt;&lt; endl;
+<span class="pl-k">void</span> <span class="pl-en">testfun</span>(T1* t1, T2* t2) {
+	cout &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>指针偏特化<span class="pl-pds">"</span></span> &lt;&lt; endl;
 }</pre></div>
 <h4>模板模板参数</h4>
 <div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">template</span>&lt;<span class="pl-k">typename</span> T,
 		<span class="pl-k">template</span>&lt;<span class="pl-k">typename</span> T&gt;
-			<span class="pl-k">class</span> Container
+			<span class="pl-k">class</span> <span class="pl-en">Container</span>
 		&gt;
-<span class="pl-k">class</span> YYY
+<span class="pl-k">class</span> <span class="pl-en">YYY</span>
 {
-<span class="pl-k">private</span>:
+<span class="pl-k">private:</span>
 	Containter&lt;T&gt; c;
 };
 
 <span class="pl-k">template</span>&lt;<span class="pl-k">typename</span> T&gt;
 <span class="pl-k">using</span> MyList = list&lt;T, allocator&lt;T&gt;&gt;;
 
-YYY&lt;string, list&gt; mylist1; // error
-YYY&lt;string, MyList&gt; myList2; // correct</pre></div>
+YYY&lt;string, list&gt; mylist1; <span class="pl-c"><span class="pl-c">//</span> error</span>
+YYY&lt;string, MyList&gt; myList2; <span class="pl-c"><span class="pl-c">//</span> correct</span></pre></div>
 <h4>可变的模板参数</h4>
 <p><code class="notranslate">typename... Types</code> 表示是一个 pack，可以通过递归调用</p>
-<div class="highlight highlight-source-c++"><pre class="notranslate">void print()
+<div class="highlight highlight-source-c++"><pre class="notranslate"><span class="pl-k">void</span> <span class="pl-en">print</span>()
 {
 }
 
 <span class="pl-k">template</span>&lt;<span class="pl-k">typename</span> T, <span class="pl-k">typename</span>... Types&gt;
-void print(const T&amp; firstArg, const Types&amp;... args)
+<span class="pl-k">void</span> <span class="pl-en">print</span>(<span class="pl-k">const</span> T&amp; firstArg, <span class="pl-k">const</span> Types&amp;... args)
 {
 	cout &lt;&lt; firstArg &lt;&lt; endl;
-	print(args...);
+	<span class="pl-c1">print</span>(args...);
 }</pre></div>
 <h2>参考资料</h2>
 <ol>
